@@ -10,7 +10,7 @@ function App() {
   return (
     <>
     <h1>
-      Just Go and Do your Work MF...
+      Just Go and Do your Work ...
     </h1>
     </>
   )
