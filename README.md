@@ -1,16 +1,41 @@
-# React + Vite
+# MissionControl
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite todo app with Appwrite authentication and database-backed todos.
 
-Currently, two official plugins are available:
+## Run Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## Where To Add Appwrite Credentials
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Create a `.env` file in the project root, next to `package.json`, and add:
 
-## Expanding the ESLint configuration
+```env
+VITE_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+VITE_APPWRITE_PROJECT_ID=your_project_id_here
+VITE_APPWRITE_DATABASE_ID=your_database_id_here
+VITE_APPWRITE_TODOS_COLLECTION_ID=your_todos_collection_id_here
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+You can copy the keys from `.env.example`.
+
+## Appwrite Setup
+
+In your Appwrite console:
+
+1. Create a project.
+2. Add a Web platform for your local app, usually `http://localhost:5173`.
+3. Enable Email/Password auth under Auth settings.
+4. Create a database.
+5. Create a collection for todos.
+6. Add these collection attributes:
+   - `title` as String, required
+   - `completed` as Boolean, required
+   - `userId` as String, required
+7. Set collection permissions so authenticated users can create documents.
+8. Enable document security if you want each todo restricted to only the user who created it.
+
+The Appwrite client and database functions live in `src/lib/appwrite.js`.
